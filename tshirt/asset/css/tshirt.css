@@ -1,3 +1,12 @@
+input[type=text] {
+	border-radius: 10px;
+	outline: none;
+}
+
+input[type=text]:focus {
+	box-shadow: none;
+}
+
 .footer {
 	position: fixed !important;
 	bottom: -6;
@@ -41,31 +50,50 @@
 	font-size: x-small;
 }
 
-@media only screen and (max-device-width: 480px) {
-	#d3,#c{
-		height: 250px !important;
-		width: 180px !important;
+@media only screen and (max-device-width: 380px) {
+	/* 	#d3,#c{ */
+	/* 		height: 250px !important; */
+	/* 		width: 180px !important; */
+	/* 	} */
+	.tshirtcolor {
+		background-color: white;
+		height: 480px;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-image: url('/tshirt/img/maletshirt.png');
 	}
-	#d3{
-	top:150;
-	left:90;
+	#d3 {
+		top: 120;
+		left: 90;
+	}
+	#filedset {
+		width: 150;
+	}
+	.txtbtn {
+		padding-bottom: 0%;
 	}
 }
+
 @media only screen and (min-device-width: 980px) {
-
-#d3,#c {
-		height: 300px !important;
-		width: 250px !important;
+	/* #d3,#c { */
+	/* 		height: 300px !important; */
+	/* 		width: 250px !important; */
+	/* 	} */
+	#d3 {
+		top: 180;
+		left: 100;
 	}
-	
-	#d3{
-	top:180;
-	left:100;
+	.tshirtcolor {
+		height: 625px;
+		background-color: white;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-image: url('/tshirt/img/maletshirt.png');
 	}
 }
 
-
-
-
-
-
+.sp-container {
+	left: 37% !important;
+}

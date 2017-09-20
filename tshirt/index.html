@@ -3,22 +3,54 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="asset/css/bootstrap.css" media="screen">
 <link rel="stylesheet" href="asset/css/tshirt.css" media="screen">
+<link rel="stylesheet" href="asset/css/spectrum.css" media="screen">
+<script type="text/javascript" src="asset/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="asset/js/jquery.preload.min.js"></script>
+<script type="text/javascript" src="asset/js/fabric.js"></script>
+<script type="text/javascript" src="asset/js/spectrum.js"></script>
+<script type="text/javascript" src="asset/js/html2canvas.js"></script>
+<script type="text/javascript" src="asset/js/canvas2image.js"></script>
+<script type="text/javascript" src="asset/js/bootstrap.min.js"></script>
+
 </head>
-
 <body style="background-color: grey;">
-	<div class="col-sm-4 visible-lg web-only"></div>
-	<div class="col-sm-4 tshirtcolor"
-		style="background-color: white; height: 100%; background-image: url('img/maletshirt.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
 
-		<input id="imgLoader" type="file" accept="image/*"
-			style="display: none">
-			
- <div id='d3' style="position:absolute;">
-		<canvas id="c" height="300"></canvas>
-</div>
+	<div class="container">
+		<div class="modal fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Design Saved Successfully</h4>
+					</div>
+					
+					<center>
+						<a id="downloaddsgn" class="btn btn-success" href="#"
+							download> Download Design </a>
+					</center>
+				</div>
 
+			</div>
+		</div>
 
 	</div>
+
+
+
+
+	<input id="imgLoader" type="file" accept="image/*"
+		style="display: none">
+	<table border="1"
+		style="background-color: #FFFFFF; border-collapse: collapse; border: 1px solid #000000; color: #000000; width: 100%"
+		cellpadding="3" cellspacing="0">
+	</table>
+	<div class="col-sm-4 visible-lg web-only"></div>
+	<div id="designarea" class="col-sm-4 tshirtcolor" style="">
+		<div id='d3' style="position: absolute;"></div>
+		<canvas id="c" height="300" style="position: sticky;"></canvas>
+	</div>
+
 	<div class="col-sm-4 visible-lg  web-only"></div>
 	<div class="footer-menu fixed-bottom" style="bottom: 45px">
 		<div class="col-sm-4 visible-lg web-only"></div>
@@ -129,14 +161,8 @@
 		</div>
 		<div class="col-sm-4 visible-lg"></div>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-		<div class="footer-menu fixed-bottom" style="bottom: 45px">
+
+	<div class="footer-menu fixed-bottom" style="bottom: 45px">
 		<div class="col-sm-4 visible-lg web-only"></div>
 		<div id="image" class="col-sm-4 col-xs-12 nav"
 			style="background: rgba(0, 0, 0, 0.7); height: 60px; display: none;">
@@ -144,20 +170,13 @@
 				<div class="col-sm-12 col-xs-12">
 					<div class="col-sm-2 col-xs-2 mini-button"></div>
 					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
 					<div class="col-sm-2 col-xs-2 mini-button">
-						<img onclick="changegender('male')" class="col-sm-12 col-xs-12"
-							style="padding: 12% 19%;" src="img/male.png">
+						<img onclick="deleteactiveobj()" id="" class="col-sm-12 col-xs-12"
+							style="padding: 12% 19%;" src="img/deleteimg.png">
 					</div>
-					<div class="col-sm-2 col-xs-2 mini-button">
-						<img onclick="changegender('female')" id=""
-							class="col-sm-12 col-xs-12" style="padding: 12% 19%;"
-							src="img/female.png">
-					</div>
-					<div class="col-sm-2 col-xs-2 mini-button">
-						<img onclick="changegender('baby')" id=""
-							class="col-sm-12 col-xs-12" style="padding: 12% 19%;"
-							src="img/baby.png">
-					</div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
 				</div>
 				<div class="col-sm-12 col-xs-12"
 					style="margin-left: -8px; padding-top: 6px;">
@@ -168,35 +187,188 @@
 					<div class="col-sm-2 col-xs-2 mini-button" style="color: white">
 						<center>&#8239</center>
 					</div>
-
 					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
-						<center>xxx</center>
-					</div>
-					<div class="col-sm-2 col-xs-2 mini-button1"
-						style="padding: 0; color: white">
-						<center>Filters</center>
+						<center>&#8239</center>
 					</div>
 					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
 						<center>Delete</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1"
+						style="padding: 0; color: white">
+						<center>&#8239</center>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 visible-lg"></div>
+	</div>
+
+	<!-- Text -->
+	<div class="footer-menu fixed-bottom" style="bottom: 45px">
+		<div class="col-sm-4 visible-lg web-only"></div>
+		<div id="i-text" class="col-sm-4 col-xs-12 nav"
+			style="background: rgba(0, 0, 0, 0.7); height: 60px; display: none;">
+			<div class="menu-content" style="padding-top: 0px;">
+				<div class="col-sm-12 col-xs-12">
+					<div class="col-sm-2 col-xs-2 mini-button"
+						style="padding-top: 20px">
+						<input type='text' id="filedset" placeholder="Add your text"
+							style="padding: 3px"></input>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button">
+						<img onclick="shownav('textstyle')"
+							class="col-sm-12 col-xs-12 txtbtn" style="padding: 12% 19%;"
+							src="img/txtstyl.png">
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button">
+						<img id="colorpicker1" class="col-sm-12 col-xs-12 txtbtn"
+							style="padding: 12% 19%;" src="img/txtclr.png">
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button">
+						<img onclick="deleteactiveobj()" id=""
+							class="col-sm-12 col-xs-12 txtbtn" style="padding: 12% 19%;"
+							src="img/deleteimg.png">
+					</div>
+				</div>
+				<div class="col-sm-12 col-xs-12"
+					style="margin-left: -8px; padding-top: 0px;">
+
+					<div class="col-sm-2 col-xs-2 mini-button" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>Style</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>Color</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1"
+						style="padding: 0; color: white">
+						<center>Delete</center>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 visible-lg"></div>
+	</div>
+
+
+	<!--  text decaration-->
+
+	<div class="footer-menu fixed-bottom" style="bottom: 45px">
+		<div class="col-sm-4 visible-lg web-only"></div>
+		<div id="textstyle" class="col-sm-4 col-xs-12 nav"
+			style="background: rgba(0, 0, 0, 0.7); height: 60px; display: none;">
+			<div class="menu-content" style="padding-top: 0px;">
+				<div class="col-sm-12 col-xs-12">
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button">
+						<img onclick="editText('bold')" class="col-sm-12 col-xs-12 txtbtn"
+							style="padding: 12% 19%;" src="img/bold.png">
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button">
+						<img onclick="editText('italic')"
+							class="col-sm-12 col-xs-12 txtbtn" style="padding: 12% 19%;"
+							src="img/italic.png">
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button">
+						<img onclick="editText('underline')" id=""
+							class="col-sm-12 col-xs-12 txtbtn" style="padding: 12% 19%;"
+							src="img/underline.png">
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+				</div>
+				<div class="col-sm-12 col-xs-12"
+					style="margin-left: -8px; padding-top: 0px;">
+					<div class="col-sm-2 col-xs-2 mini-button" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>Bold</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>Italic</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1"
+						style="padding: 0; color: white">
+						<center>Underline</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button" style="color: white">
+						<center>&#8239</center>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-4 visible-lg"></div>
 	</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+	<!-- product style -->
+
+
+
+	<div class="footer-menu fixed-bottom" style="bottom: 45px">
+		<div class="col-sm-4 visible-lg web-only"></div>
+		<div id="productstyle" class="col-sm-4 col-xs-12 nav"
+			style="background: rgba(0, 0, 0, 0.7); height: 60px; display: none;">
+			<div class="menu-content" style="padding-top: 0px;">
+				<div class="col-sm-12 col-xs-12">
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button">
+						<img onclick="changegender('collar')"
+							class="col-sm-12 col-xs-12 txtbtn" style="padding: 12% 19%;"
+							src="img/collar.png">
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+					<div class="col-sm-2 col-xs-2 mini-button"></div>
+				</div>
+				<div class="col-sm-12 col-xs-12"
+					style="margin-left: -8px; padding-top: 0px;">
+
+					<div class="col-sm-2 col-xs-2 mini-button" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>Collar</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
+						<center>&#8239</center>
+					</div>
+					<div class="col-sm-2 col-xs-2 mini-button1"
+						style="padding: 0; color: white">
+						<center>&#8239</center>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-4 visible-lg"></div>
+	</div>
+
+
+
 	<div class="footer-menu fixed-bottom">
 		<div class="col-sm-4 visible-lg web-only"></div>
 		<div class="col-sm-4 col-xs-12"
@@ -206,7 +378,7 @@
 					<div class="col-sm-2 col-xs-2 mini-button">
 						<center>
 							<img class="col-sm-12 col-xs-12" style="padding: 12% 19%;"
-								src="img/txt.png">
+								src="img/product.png">
 						</center>
 					</div>
 
@@ -217,7 +389,8 @@
 								src="img/gender.png">
 						</center>
 					</div>
-					<div class="col-sm-2 col-xs-2 mini-button">
+					<div class="col-sm-2 col-xs-2 mini-button"
+						onclick="shownav('productstyle')">
 						<center>
 							<img class="col-sm-12 col-xs-12" style="padding: 12% 19%;"
 								src="img/style.png">
@@ -226,7 +399,7 @@
 					<div class="col-sm-2 col-xs-2 mini-button">
 						<center>
 							<img class="col-sm-12 col-xs-12" style="padding: 12% 19%;"
-								src="img/message.png">
+								src="img/message.png" onclick="shownav('i-text')">
 						</center>
 					</div>
 					<div class="col-sm-2 col-xs-2 mini-button">
@@ -260,7 +433,6 @@
 					<div class="col-sm-2 col-xs-2 mini-button1" style="color: white">
 						<center>Image</center>
 					</div>
-
 					<div onclick="shownav('color')"
 						class="col-sm-2 col-xs-2 mini-button1" style="color: white">
 						<center>Color</center>
@@ -273,14 +445,15 @@
 			<div class="col-sm-4 visible-lg web-only"></div>
 			<div class="col-sm-4 col-xs-12" style="background-color: black;">
 				<center>
-					<button class="btn btn-sm btn-primary" style="width: 80%">CONTINUE</button>
+					<button data-toggle="modal" data-target="#myModal"
+						onclick="saveimg()" class="btn btn-sm btn-primary"
+						style="width: 80%">SAVE DESIGN</button>
 				</center>
 			</div>
 			<div class="col-sm-4 visible-lg"></div>
 		</div>
+		<script type="text/javascript" src="asset/js/tshirt.js"></script>
 </body>
-<script type="text/javascript" src="asset/js/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="asset/js/jquery.preload.min.js"></script>
-<script type="text/javascript" src="asset/js/fabric.min.js"></script>
-<script type="text/javascript" src="asset/js/tshirt.js"></script>
+
+
 </html>
